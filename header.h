@@ -23,11 +23,8 @@ class TritSetTrit
     
     public:
     TritSetTrit(TritSet &, uint, uint &, uint);
-
     TritSetTrit &operator=(const Trit &);
-
     bool operator==(Trit);
-
     operator Trit();
 };
 
