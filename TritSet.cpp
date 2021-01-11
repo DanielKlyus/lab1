@@ -3,12 +3,12 @@
 ostream &operator<<(ostream &out, Trit &trit)
 {
     switch (trit)
-	  {
+    {
         case Trit::True :
             out << 1;
             break;
         case Trit::False :
-           out << 0;
+            out << 0;
             break;
         default:
             out << "?";
@@ -19,7 +19,7 @@ ostream &operator<<(ostream &out, Trit &trit)
 ostream &operator<<(ostream &out, TritSet &set)
 {
     for (auto s : set)
-	  {
+    {
         out << s;
     }
     return out;
@@ -42,7 +42,7 @@ TritSet::TritSet(uint s)
 TritSetTrit TritSet::operator[](uint nmb)
 {
     if (nmb >= size)
-	  {
+    {
         return TritSetTrit(*this, nmb, trits.front(), TRITS_IN_UINT + 1 + nmb);
     }
     return TritSetTrit(*this, nmb, trits[nmb / TRITS_IN_UINT], nmb % TRITS_IN_UINT);
@@ -70,7 +70,7 @@ size_t TritSet::cardinality(Trit value)
 {
     check();
     switch (value)
-	  {
+    {
         case Trit::True:
             return true_amount;
         case Trit::False:
@@ -100,9 +100,9 @@ size_t TritSet::length() const
     uint length = capacity();
     uint lit = 0;
     for (uint i = 0; i < length; i++)
-	{
+    {
         if ((*this)[i] != Trit::Unknown)
-		    {
+	{
             lit = i;
         }
     }
@@ -115,7 +115,7 @@ TritSet TritSet::operator&(const TritSet &set) const
     TritSet returnSet(biggestLength);
     uint mask1, mask2;
     for (uint i = 0; i < biggestLength; i++)
-	{
+    {
         mask1 = 3;
         mask2 = 3;
         mask1 = mask1 & (trits[i / TRITS_IN_UINT] >> (2 * (i % TRITS_IN_UINT)));
@@ -135,7 +135,7 @@ TritSet TritSet::operator|(const TritSet &set) const
     TritSet returnSet(biggestLength);
     uint mask1, mask2;
     for (uint i = 0; i < biggestLength; i++)
-	  {
+    {
         mask1 = 3;
         mask2 = 3;
         mask1 = mask1 & (trits[i / TRITS_IN_UINT] >> (2 * (i % TRITS_IN_UINT)));
@@ -154,7 +154,7 @@ TritSet TritSet::operator!()
     TritSet returnSet(length);
     uint mask1;
     for (uint i = 0; i < length; i++)
-	  {
+    {
         mask1 = 3;
         mask1 = mask1 & (trits[i / TRITS_IN_UINT] >> (2 * (i % TRITS_IN_UINT)));
         if (mask1 == static_cast<uint>(Trit::True)) returnSet[i] = Trit::False;
@@ -179,18 +179,18 @@ TritSet &TritSet::operator=(const TritSet &set)
 void TritSet::check()
 {
     if (!isChecked)
-	  {
+    {
         uint length = capacity();
         true_amount = 0;
         false_amount = 0;
         lastImportantTrit = 0;
         uint unknownsBuffer = 0;
         for (uint i = 0; i < length; i++)
-		    {
+	{
             if ((*this)[i] == Trit::Unknown)
                 unknownsBuffer++;
             else
-			      {
+	    {
                 if ((*this)[i] == Trit::True)
                     true_amount++;
                 else
@@ -225,7 +225,7 @@ TritSet::TritSet(initializer_list<Trit> list)
         trits.resize(size / TRITS_IN_UINT + 1, 0);
     uint i = 0;
     for (auto &s: list)
-	  {
+    {
         (*this)[i] = s;
         i++;
     }
@@ -246,9 +246,9 @@ TritSet::iterator TritSet::end()
 TritSetTrit &TritSetTrit::operator=(const Trit &n)
 {
     if (shift / 2 > set.TRITS_IN_UINT)
-	  {
+    {
         if (n != Trit::Unknown)
-		    {
+	{
             uint newSize = shift / 2 - set.TRITS_IN_UINT - 1;
             set.trits.resize(newSize / set.TRITS_IN_UINT + 1, 0);
             set.size = newSize;
@@ -257,8 +257,8 @@ TritSetTrit &TritSetTrit::operator=(const Trit &n)
             set.trits[newSize / set.TRITS_IN_UINT] = set.trits[newSize / set.TRITS_IN_UINT] | (static_cast<int> (n) << (newSize % set.TRITS_IN_UINT) * 2);
         }
     }
-	  else
-	  {
+    else
+    {
         pointer = pointer & (~(3 << shift));
         pointer = pointer | (static_cast<int> (n) << shift);
     }
@@ -280,7 +280,7 @@ TritSetTrit::operator Trit()
     uint mask = 3;
     mask = mask & (pointer >> shift);
     switch (mask)
-	  {
+    {
         default:
             return Trit::Unknown;
         case 1:
