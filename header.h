@@ -52,7 +52,6 @@ class TritSet
 		
 	public:
         iterator(TritSet *, uint);
-
         iterator &operator++();
 
         bool operator!=(const iterator &);
