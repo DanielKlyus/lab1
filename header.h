@@ -14,23 +14,26 @@ enum class Trit
 
 class TritSetTrit
 {
-    private:
-    class TritSet &set;
+	private:
+	class TritSet &set;
 
     uint nmb;
     uint &pointer;
     uint shift;
     
-    public:
+	public:
     TritSetTrit(TritSet &, uint, uint &, uint);
+
     TritSetTrit &operator=(const Trit &);
+
     bool operator==(Trit);
+
     operator Trit();
 };
 
 class TritSet
 {
-    private:
+	private:
     uint true_amount;
     uint false_amount;
     uint unknown_amount;
@@ -40,15 +43,16 @@ class TritSet
     uint size;
     vector<uint> trits;
 	
-    public:
+	public:
     class iterator
-    {
-	private:
+	{
+		private:
         TritSet *parent;
         uint index;
 		
-	public:
+		public:
         iterator(TritSet *, uint);
+
         iterator &operator++();
 
         bool operator!=(const iterator &);
@@ -64,9 +68,9 @@ class TritSet
     TritSet operator&(const TritSet &) const;
     TritSet operator|(const TritSet &) const;
     TritSet operator!();
-    void check();
+    void check() const;
     void shrink();
-    size_t cardinality(Trit);
+    size_t cardinality(Trit) const;
     size_t length() const;
     void trim(size_t);
     explicit TritSet(uint);
